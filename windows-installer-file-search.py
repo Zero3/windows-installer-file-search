@@ -12,7 +12,7 @@ def search(needle):
 						with winreg.OpenKey(componentsParentHandle, winreg.EnumKey(componentsParentHandle, componentIndex)) as componentHandle:
 							for valueIndex in range(0, winreg.QueryInfoKey(componentHandle)[1]):
 								valueName, valueData = winreg.EnumValue(componentHandle, valueIndex)[0:2]
-								if needle in valueData:
+								if needle.casefold() in valueData.casefold():
 									with winreg.OpenKey(userDataHandle, "Products\\" + valueName + "\\InstallProperties") as propertiesHandle:
 										if not found:
 											found = True
