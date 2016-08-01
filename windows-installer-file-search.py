@@ -3,7 +3,7 @@ import winreg
 
 def search(needle):
 	found = False
-	with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData") as userDataParentHandle:
+	with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData", access=winreg.KEY_READ | winreg.KEY_WOW64_64KEY) as userDataParentHandle:
 		for userDataIndex in range(0, winreg.QueryInfoKey(userDataParentHandle)[0]):
 			user = winreg.EnumKey(userDataParentHandle, userDataIndex)
 			with winreg.OpenKey(userDataParentHandle, user) as userDataHandle:
